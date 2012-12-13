@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative "../lib/rack/flashhash.rb" 
+require_relative "../lib/rack/flasher/hash.rb" 
 
 shared_examples_for "Any Flasher hash" do
     it { should_not be_nil }
