@@ -4,7 +4,7 @@ Flash for Rack using the FlashHash from Sinatra Flash.
 
 ## Why? ##
 
-Because I want to use a _Rack_ flash, but Rack::Flash is difficult to use and the source makes no sense to me. [Sinatra Flash](https://rubygems.org/gems/sinatra-flash) has a nice implementation for the flash hash, it's easy to follow, all it needs is conversion to Rack middleware.
+Because I want to use a _Rack_ flash, but the current [Rack Flash library](https://rubygems.org/gems/rack-flash3) is difficult to use and the source makes no sense to me. [Sinatra Flash](https://rubygems.org/gems/sinatra-flash) has a nice implementation for the flash hash, it's easy to follow, all it needs is conversion to Rack middleware.
 
 ## Installation
 
