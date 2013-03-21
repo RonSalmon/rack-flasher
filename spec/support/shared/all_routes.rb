@@ -1,28 +1,18 @@
-require_relative "../../../lib/rack/flasher.rb"
+config_path = File.expand_path '../../../examples/simplest/config.rb', File.dirname(__FILE__)
+require_relative config_path
 
-
-module App
-
-  def self.app( options={} )
-    Rack::Builder.app do
-      use Rack::Flasher, options
-      routes = lambda { |e|
-        request = Rack::Request.new(e)
-        Rack::Response.new( [""], 200, {"Content-Type" => "text/html"}
-        ).finish
-      }
-      run routes
-    end
-  end    
-end
+require 'sinatra/base'
 
 shared_context "All routes" do |options={}|
   include Rack::Test::Methods
-  warn "options = #{options.inspect}"
-  let(:app){ App.app( options ) }
+  let(:app){ Example.app options }
 end
 
 shared_examples_for "Any route" do
   subject { last_response }
   it { should be_ok }
 end
+# shared_context "All routes" do |options={}|
+#   include Capybara::DSL 
+#   Capybara.app = Example.app options
+# end
