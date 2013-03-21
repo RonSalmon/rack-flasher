@@ -1,5 +1,7 @@
 require 'sinatra/base'
 require 'haml'
+
+# You wouldn't do this bit, you'd call `require 'rack_flasher'`
 dir = File.dirname __FILE__
 require File.expand_path "../../lib/rack/flasher.rb", dir
 require File.expand_path "../../lib/sinatra/flasher.rb", dir
@@ -9,6 +11,8 @@ module Example
     helpers Sinatra::Flasher
 
     enable :inline_templates
+    enable :static
+    set :public_folder, File.expand_path( "public", File.dirname(__FILE__)) 
 
     get "/" do
       flash[:info] << "You just left the index page."
@@ -24,7 +28,7 @@ module Example
     post "/login" do
       if params[:user].to_i == 1
         session[:user] = params[:user]
-        flash[:info] << "Welcome back!"
+        flash[:success] << "Welcome back!"
         redirect "/"
       else
         flash.now[:warning] << "Login failed. Try again."        
@@ -65,9 +69,11 @@ __END__
 !!!
 %head
   %title Example
+  %link{ rel: "stylesheet", href: "/style.css", media: "screen" }
 %body
   = styled_flash
-  = yield
+  #content
+    = yield
 
 @@index
 <a href="/login">Login</a>
