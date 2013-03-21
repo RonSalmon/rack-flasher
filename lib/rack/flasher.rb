@@ -25,12 +25,9 @@ module Rack
     end
     def flash_to_session!
       flash.rotate!
-      fhs = {}
-      flash.each do |k,v|
-        fhs[k] = Hash[v.next]
+      session[@rack_flash] = flash.each_with_object({}) do |(k,v),fs|
+        fs[k] = Hash[v.now]
       end
-        
-      session[@rack_flash] = fhs
     end
   end
 
